@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Agenda tu Cita - Barbería</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .hora { margin: 8px 0; }
+    a.boton-wsp {
+      display: inline-block;
+      background-color: #25D366;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Agenda tu Cita por WhatsApp</h2>
+<p>Selecciona un día para ver los horarios:</p>
+
+<label for="dia">Día:</label>
+<select id="dia">
+  <option value="viernes">Viernes</option>
+  <option value="sabado">Sábado</option>
+  <option value="domingo">Domingo</option>
+  <option value="lunes">Lunes</option>
+  <option value="martes">Martes</option>
+  <option value="miercoles">Miércoles</option>
+</select>
+
+<h3>Horarios:</h3>
+<div id="horarios"></div>
+
+<script>
+const numeroWhatsApp = "521234567890"; // <--- CAMBIA ESTE NÚMERO POR TU WHATSAPP
+
+const horarios = [
+  "3:00 PM",
+  "3:30 PM",
+  "4:00 PM",
+  "4:30 PM",
+  "5:00 PM",
+  "5:30 PM",
+  "6:00 PM",
+  "6:30 PM"
+];
+
+document.getElementById('dia').addEventListener('change', mostrarHorarios);
+mostrarHorarios();
+
+function mostrarHorarios() {
+  const dia = document.getElementById('dia').value;
+  const contenedor = document.getElementById('horarios');
+  contenedor.innerHTML = '';
+
+  horarios.forEach(hora => {
+    const mensaje = encodeURIComponent(`Hola, quiero agendar una cita el ${dia} a las ${hora}`);
+    const enlace = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+
+    const div = document.createElement('div');
+    div.className = 'hora';
+    div.innerHTML = `<a href="${enlace}" target="_blank" class="boton-wsp">Agendar ${hora}</a>`;
+
+    contenedor.appendChild(div);
+  });
+}
+</script>
+
+</body>
+</html>
